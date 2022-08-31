@@ -14,14 +14,22 @@
  * }
  */
 class Solution {
+    int maxDepth=-1;
+    TreeNode res=null;
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
-        if(root==null) return root;
-        if(height(root.left)==height(root.right)) return root;
-        else if(height(root.left)>height(root.right)) return subtreeWithAllDeepest(root.left);
-        else return subtreeWithAllDeepest(root.right);
+       helper(root,0);
+        return res;
     }
-    int height(TreeNode root){
-        if(root==null) return 0;
-        return 1+Math.max(height(root.left),height(root.right));
+    int helper(TreeNode root,int height){
+        if(root==null) return height;
+        int left = helper(root.left,height+1);
+        int right = helper(root.right,height+1);
+        if(left==right){
+            if(maxDepth<=left){
+                maxDepth=left;
+                res=root;
+            }
+        }
+        return Math.max(left,right);
     }
 }
