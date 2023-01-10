@@ -1,7 +1,11 @@
 class Solution {
-    boolean check(long[] ans, long mid, int r, int k){
+    boolean check(int[] stations, long mid, int r, int k){
         long sum=0;
-        int n=ans.length;
+        int n=stations.length;
+        long[] ans = new long[n];
+            for(int i=0;i<n;i++)
+            ans[i]=stations[i];
+        
         for(int i=0;i<r;i++)
             sum+=ans[i];
         for(int i=0;i<n;i++){
@@ -25,10 +29,7 @@ class Solution {
    
         while(l<h){
             long mid=h+(l-h)/2;
-            long[] ans = new long[n];
-            for(int i=0;i<n;i++)
-            ans[i]=stations[i];
-            if(check(ans,mid,r,k)) l=mid;
+            if(check(stations,mid,r,k)) l=mid;
             else h=mid-1;
         }
         return l;
