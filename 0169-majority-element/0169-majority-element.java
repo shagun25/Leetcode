@@ -3,10 +3,12 @@ class Solution {
         // Boyer-Moore Voting Algorithm
         int candidate=0,count=0;
         for(int x: nums){
-            if(count==0){
+            if(x==candidate) count++;
+            else if(count==0){
                 candidate=x;
+                count=1;
             }
-            count+=(x==candidate)?1:-1;
+            else count--;
         }
         return candidate;
     }
