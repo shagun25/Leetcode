@@ -1,5 +1,13 @@
 class Solution {
     public void nextPermutation(int[] nums) {
+        // Approach:
+        // 1. Traverse from back, find ind1
+        //     arr[i]<arr[i+1]
+        // 2. Traverse from back, find ind2, if and only if break point at ind1 is found
+        //     2.1 arr[i]>arr[ind1]
+        //     2.2 swap(nums[ind1],nums[ind2])
+        //     2.3 reverse(ind1+1,n-1)
+            
         int n = nums.length;
         int ind1=-1;
         for(int i=n-2;i>=0;i--){
