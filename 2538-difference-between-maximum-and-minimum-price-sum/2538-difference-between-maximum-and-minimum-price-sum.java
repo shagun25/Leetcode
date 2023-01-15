@@ -1,39 +1,56 @@
 class Solution {
+    private long[] subtree_sum; //Stores -> If the tree was rooted at node 0 what is the maximum sum we can get from subtree of i
+    private long max_dif = 0L;
     public long maxOutput(int n, int[][] edges, int[] price) {
-        Map<Integer,List<Integer>> adj = new HashMap<>();
-        for(int[] edge : edges) {
-            adj.computeIfAbsent(edge[0],x-> new ArrayList<>()).add(edge[1]);
-            adj.computeIfAbsent(edge[1],x-> new ArrayList<>()).add(edge[0]);
+        List<List<Integer>> tree = new ArrayList<>();
+        for(int i=0;i<n;i++) tree.add(new ArrayList<>());
+        for(int[] e: edges){
+            tree.get(e[0]).add(e[1]);
+            tree.get(e[1]).add(e[0]);
         }
-        
-        long res = 0;
-        Map<String,Long> memPathSum = new HashMap<>();
-        for(Map.Entry<Integer,List<Integer>> entry : adj.entrySet()) {
-            int root = entry.getKey();
-            long max = maxPriceSum(root,-1,adj,price,memPathSum);
-            long min = (long) price[root];
-            res = Math.max(res,max-min);
-        }
-        return res;
+        subtree_sum = new long[n];
+        dfs(0,-1,tree,price);  //Fills the subtree_sum array
+        dfs2(0,-1,tree,price,0);
+        return max_dif;
     }
-    
-    private long maxPriceSum(int node,int parent,Map<Integer,List<Integer>> adj,int[] price,Map<String,Long> memPathSum) {
-        if(!adj.containsKey(node)) return 0;
-        
-        long sum = 0;
-        for(int child : adj.get(node)) {
+    private long dfs(int node, int parent, List<List<Integer>> tree, int[] price){
+        long m = 0L; //We need the maximum contribution of children. 
+        for(int child: tree.get(node)){
             if(child == parent) continue;
-            long childPathSum;
-            if(memPathSum.containsKey(child+"#"+node))
-                childPathSum = memPathSum.get(child+"#"+node);
-            else {
-                childPathSum = maxPriceSum(child,node,adj,price,memPathSum);
-                memPathSum.put(child+"#"+node,childPathSum);
-            }
-               
-            sum = Math.max(childPathSum,sum);
+            m  = Math.max(m, dfs(child,node,tree,price));
         }
-        sum += price[node];
-        return sum;
+        return subtree_sum[node] = price[node] + m;
+    }
+    private void dfs2(int node, int parent,List<List<Integer>> tree, int[] price, long parent_contribution){
+        int c1=-1,c2=-1; 
+        long mc1=0,mc2=0;  //2 maximum contribution of children
+        for(int child: tree.get(node)){
+            if(child == parent) continue;
+            if(subtree_sum[child]>mc1){
+                c2 = c1;
+                mc2 = mc1;
+                c1 = child;
+                mc1 = subtree_sum[child];
+            }
+            else if(subtree_sum[child]>mc2){
+                c2 = child;
+                mc2 = subtree_sum[child];
+            }
+        }
+        long path1 = mc1;
+        long path2 = parent_contribution;
+        max_dif = Math.max(max_dif,Math.max(path1,path2));
+        for(int child: tree.get(node)){
+            if(child == parent) continue;
+/*
+How can a parent add a path to child?
+1. Take a path from a siblling of child     (we want the maximum siblling)
+2. Take a path from its parent
+
+Thus the contribution of current node to its child c is maximum(maximum siblling ,node's parent_contribution)
+*/
+            if(c1 == child) dfs2(child,node,tree,price,price[node]+Math.max(mc2,parent_contribution)); 
+            else dfs2(child,node,tree,price,price[node]+Math.max(mc1,parent_contribution));
+        }
     }
 }
