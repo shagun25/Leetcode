@@ -41,10 +41,10 @@ class Solution {
             max=Math.max(pile,max);
         
         int low=1,high=max;
-        while(low<=high)
+        while(low<high)
         {
             int mid=(low+high)/2;
-            if(checkHours(N,piles,mid)<=h)high=mid-1;
+            if(checkHours(N,piles,mid)<=h)high=mid;
             else low=mid+1;
         }
         return low;
