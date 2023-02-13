@@ -3,15 +3,15 @@ class Solution {
         Stack<Character> st = new Stack<>();
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                if (st.size() >= 1) {
-                    sb.append(s.charAt(i));
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') {
+                if (st.size() >0) {
+                    sb.append(ch);
                 }
-                st.push(s.charAt(i));
+                st.push(ch);
             } else {
                 if (st.size() > 1) {
-                    sb.append(s.charAt(i));
+                    sb.append(ch);
                 }
                 st.pop();
             }
