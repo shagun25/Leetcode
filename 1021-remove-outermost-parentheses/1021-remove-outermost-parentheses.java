@@ -8,4 +8,14 @@ class Solution {
         }
         return s.toString();
     }
+//     Primitive string will have equal number of opened and closed parenthesis.
+
+// Explanation:
+// opened count the number of opened parenthesis.
+// Add every char to the result,
+// unless the first left parenthesis,
+// and the last right parenthesis.
+
+// Time Complexity:
+// O(N) Time, O(N) space
 }
