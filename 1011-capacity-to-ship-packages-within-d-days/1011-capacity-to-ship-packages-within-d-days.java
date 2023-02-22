@@ -17,14 +17,14 @@ class Solution {
             sum+=weight;
             max = Math.max(max,weight);
         }
-        int low = max, high = sum;
-        while(low<high){
+        int low = max, high = sum,ans=0;
+        while(low<=high){
             int mid = low+(high-low)/2;
             if(check(weights,mid,days)) {
-                high=mid;
+                high=mid-1;ans=mid;
             }
             else low=mid+1;
         }
-        return low;
+        return ans;
     }
 }
