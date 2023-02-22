@@ -1,25 +1,28 @@
 class Solution {
-    int check(int[] weights, int mid){
-        int sum=0;
+    boolean check(int[] weights, int mid, int days){
         int count=0;
-     for(int weight: weights){
-         sum+=weight;
-         if(sum>mid) {sum=weight;count++;}
-     }
-        return count;
+        int W=0;
+        for(int weight : weights){
+            W+=weight;
+            if(W>mid){
+                W=weight;
+                count++;
+            }
+        }
+        return count>=days?false:true;
     }
     public int shipWithinDays(int[] weights, int days) {
-        int max=Integer.MIN_VALUE,totalLoad=0;
-        for(int weight: weights){
-            totalLoad+=weight;
-            max=Math.max(weight,max);
+        int sum=0, max = Integer.MIN_VALUE;
+        for(int weight : weights){
+            sum+=weight;
+            max = Math.max(max,weight);
         }
-    
-        int low=max,high=totalLoad;
-        while(low<high)
-        {
-            int mid=low+(high-low)/2;
-            if(check(weights,mid)<days) high=mid;
+        int low = max, high = sum;
+        while(low<high){
+            int mid = low+(high-low)/2;
+            if(check(weights,mid,days)) {
+                high=mid;
+            }
             else low=mid+1;
         }
         return low;
