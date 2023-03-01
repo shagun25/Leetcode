@@ -1,54 +1,52 @@
 class Solution {
-    private void merge(int[] arr, int left, int mid, int right, int[] tempArr) {
-        // Calculate the start and sizes of two halves.
-        int start1 = left;
-        int start2 = mid + 1;
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-        
-        // Copy elements of both halves into a temporary array.
-        for (int i = 0; i < n1; i++) {
-            tempArr[start1 + i] = arr[start1 + i];
-        }
-        for (int i = 0; i < n2; i++) {
-            tempArr[start2 + i] = arr[start2 + i];
+    private void swap(int[] arr, int index1, int index2) {
+        int temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    }
+    
+    // Function to heapify a subtree (in top-down order) rooted at index i.
+    private void heapify(int[] arr, int n, int i) {
+        // Initialize largest as root 'i'.
+        int largest = i; 
+        int left = 2 * i + 1;
+        int right = 2 * i + 2; 
+
+        // If left child is larger than root.
+        if (left < n && arr[left] > arr[largest]) {
+            largest = left;
         }
 
-        // Merge the sub-arrays 'in tempArray' back into the original array 'arr' in sorted order.
-        int i = 0, j = 0, k = left;
-        while (i < n1 && j < n2) {
-            if (tempArr[start1 + i] <= tempArr[start2 + j]) {
-                arr[k] = tempArr[start1 + i];
-                i += 1;
-            } else {
-                arr[k] = tempArr[start2 + j];
-                j += 1;
-            }
-            k += 1;
+        // If right child is larger than largest so far.
+        if (right < n && arr[right] > arr[largest]) {
+            largest = right;
         }
 
-        // Copy remaining elements
-        while (i < n1) {
-            arr[k] = tempArr[start1 + i];
-            i += 1;
-            k += 1;
-        }
-        while (j < n2) {
-            arr[k] = tempArr[start2 + j];
-            j += 1;
-            k += 1;
+        // If largest is not root swap root with largest element
+        // Recursively heapify the affected sub-tree (i.e. move down).
+        if (largest != i) {
+            swap(arr, i, largest); 
+            heapify(arr, n, largest);
         }
     }
-    private void mergeSort(int[] nums, int left, int right, int[] tempArray){
-        if(left>=right) return;
-        int mid = (left+right)/2;
-        mergeSort(nums,left,mid,tempArray);
-        mergeSort(nums,mid+1,right,tempArray);
-        merge(nums,left,mid,right,tempArray);
+
+    private void heapSort(int[] arr) {
+        int n = arr.length;
+        // Build heap; heapify (top-down) all elements except leaf nodes.
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+
+        // Traverse elements one by one, to move current root to end, and
+        for (int i = n - 1; i >= 0; i--) {
+            swap(arr, 0, i);
+            // call max heapify on the reduced heap.
+            heapify(arr, i, 0);
+        }
     }
+
     public int[] sortArray(int[] nums) {
-        int tempArray[] = new int[nums.length];
-        mergeSort(nums,0,nums.length-1,tempArray);
+        heapSort(nums);
         return nums;
     }
 }
