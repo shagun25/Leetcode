@@ -13,6 +13,7 @@ class Solution {
             if (i == curEnd) {
                 answer++;
                 curEnd = curFar;
+                System.out.println(i+" "+curEnd);
             }
         }
         
