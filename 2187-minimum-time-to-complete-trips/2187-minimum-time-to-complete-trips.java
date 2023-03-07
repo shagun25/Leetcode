@@ -11,15 +11,16 @@ class Solution {
         for (int t : time) {
             max_time = Math.max(max_time, t);
         }
-        long l = 1, h = (long) max_time*totalTrips;
-        while(l<h){
+        long l = 1, h = (long) max_time*totalTrips,ans=0;
+        while(l<=h){
             long m = l+(h-l)/2;
             long res = bs(time,m);
             if(res>=totalTrips) {
-                h = m;
+                ans=m;
+                h = m-1;
             }
             else l=m+1;
         }
-        return l;
+        return ans;
     }
 }
