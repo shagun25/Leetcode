@@ -11,11 +11,11 @@
 
 
 //     Approach & Complete Inutuition
-// Method 1: Brute Force
-// Method 2: Compare K elements One By One
-// Method 3: Compare K elements by Priority Queue
-// Method 4: Merge 2 Lists at a time
-// Method 5: Merge K lists by Divide & Conquer (Most Optimal)
+// Method 1: Brute Force      [tc: O(NlogN), sc:O(N) ]
+// Method 2: Compare K elements One By One    [tc: O(Nk), sc:O(N) ]
+// Method 3: Compare K elements by Priority Queue    [tc: O(Nk), sc:O(N+k) ]
+// Method 4: Merge 2 Lists at a time   [tc: O(kN), sc:O(1) ]
+// Method 5: Merge K lists by Divide & Conquer (Most Optimal)  [tc: O(klogk + NlogK) => O(NlogK), sc:O(logK) ]
 class Solution {
     
     //Method1 Brute Force
