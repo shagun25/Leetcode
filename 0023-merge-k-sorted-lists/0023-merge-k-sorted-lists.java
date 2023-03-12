@@ -68,7 +68,7 @@ class Solution {
 //         return head.next;    
 //     }
     
-    // Method 5: Merge K lists by Divide & Conquer (Most Optimal)
+    // Method 5: Merge K lists by Divide & Conquer (Most Optimal) [tc: O(klogk + NlogK) => O(NlogK), sc:O(logK) ]
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists.length == 0) return null;
         if(lists.length == 1) return lists[0];
