@@ -14,14 +14,24 @@
  * }
  */
 class Solution {
-    boolean isMirror(TreeNode root1, TreeNode root2) {
-        if(root1==null && root2==null) return true;
-        if(root1==null || root2==null) return false;
-        if(root1.val!=root2.val) return false;
-        return isMirror(root1.left,root2.right) && isMirror(root1.right,root2.left);
-    }
+    
     public boolean isSymmetric(TreeNode root) {
-        if(root==null) return true;
-        return isMirror(root.left,root.right);
+        if(root == null) return true;
+
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.add(root.left);
+        q.add(root.right);
+        while(!q.isEmpty()){
+            TreeNode leftNode = q.poll();
+            TreeNode rightNode = q.poll();
+
+            if(leftNode==null && rightNode==null) continue;
+            if(leftNode==null || rightNode==null || leftNode.val != rightNode.val) return false;
+            q.add(leftNode.left);
+            q.add(rightNode.right);
+            q.add(leftNode.right);
+            q.add(rightNode.left);
+        }
+        return true;
     }
 }
