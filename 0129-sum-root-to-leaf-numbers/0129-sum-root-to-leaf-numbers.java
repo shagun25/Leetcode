@@ -22,11 +22,11 @@ class Solution {
     public void binaryTreePaths(TreeNode root,String sum) {
         if(root==null) return;
          if(root.left==null && root.right==null){
-            sum+=root.val+"";
+            sum+=root.val;
              Sum+=Integer.parseInt(sum);
             return;
         }
-       binaryTreePaths(root.left,sum+root.val+"");
-       binaryTreePaths(root.right,sum+root.val+"");
+       binaryTreePaths(root.left,sum+root.val);
+       binaryTreePaths(root.right,sum+root.val);
     }
 }
