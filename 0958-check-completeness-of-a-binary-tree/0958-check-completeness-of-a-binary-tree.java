@@ -14,20 +14,22 @@
  * }
  */
 class Solution {
-    int countNodes(TreeNode root){
-        if(root==null) return 0;
-        return 1+countNodes(root.left)+countNodes(root.right);
-    }
     public boolean isCompleteTree(TreeNode root) {
-        return dfs(root,0,countNodes(root));
-    }
-    boolean dfs(TreeNode root,int index,int n){
-        if (root == null) {
-            return true;
+        boolean nullNodeFound=false;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode curr = q.poll();
+            if(curr==null){
+                nullNodeFound=true;
+            }else{
+                if(nullNodeFound==true) return false;
+                else{
+                   q.add(curr.left);
+                   q.add(curr.right);
+                }
+            }
         }
-        // If index assigned to current node is greater or equal to the number of nodes
-        // in tree, then the given tree is not a complete binary tree.
-        if(index>=n) return false;
-        return dfs(root.left,2*index+1,n) && dfs(root.right,2*index+2,n);
+        return true;
     }
 }
