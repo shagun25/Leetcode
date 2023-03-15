@@ -25,6 +25,8 @@ class Solution {
         if (root == null) {
             return true;
         }
+        // If index assigned to current node is greater or equal to the number of nodes
+        // in tree, then the given tree is not a complete binary tree.
         if(index>=n) return false;
         return dfs(root.left,2*index+1,n) && dfs(root.right,2*index+2,n);
     }
