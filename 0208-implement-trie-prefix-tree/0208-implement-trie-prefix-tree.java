@@ -21,7 +21,7 @@ class TrieNode{
         return isEnd;
     }
 }
-    class Trie {
+class Trie {
     TrieNode root;
     public Trie() {
         root = new TrieNode();
@@ -29,24 +29,20 @@ class TrieNode{
     
     public void insert(String word) {
         TrieNode node = root;
-        for(int i=0;i<word.length();i++){
-            char ch = word.charAt(i);
+        for(char ch : word.toCharArray()){
             if(!node.containsKey(ch)){
-                node.put(ch,new TrieNode());
+                node.put(ch, new TrieNode());
             }
             node = node.get(ch);
         }
         node.setEnd();
     }
-    TrieNode searchPrefix(String word){
+    public TrieNode searchPrefix(String word){
         TrieNode node = root;
-        for(int i=0;i<word.length();i++){
-            char ch = word.charAt(i);
-            if(node.containsKey(ch)){
+        for(char ch : word.toCharArray()){
+            if(node.containsKey(ch))
                 node = node.get(ch);
-            }else{
-                return null;
-            }
+            else return null;
         }
         return node;
     }
