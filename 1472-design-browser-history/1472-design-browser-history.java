@@ -1,54 +1,45 @@
-class DLLNode{
-    String data;
-    DLLNode next,prev;
-    DLLNode(String url){
-        this.data=url;
-        next=null;
-        prev=null;
-    }
-}
 class BrowserHistory {
-    DLLNode linkedListHead, current;
+    Stack<String> history,future;
+    String current;
     public BrowserHistory(String homepage) {
-        linkedListHead = new DLLNode(homepage);
-        current = linkedListHead;
+        history= new Stack<>();
+        future = new Stack<>();
+        current = homepage;
     }
     
     public void visit(String url) {
-        DLLNode node = new DLLNode(url);
-        current.next=node;
-        node.prev=current;
-        current=node;
+        history.push(current);
+        current=url;
+        future = new Stack<>();
     }
     
     public String back(int steps) {
-        while(steps>0 && current.prev!=null){
-            current=current.prev;
+        while(steps>0 && !history.isEmpty()){
+            future.push(current);
+            current = history.pop();
             steps--;
         }
-        return current.data;
+        return current;
     }
     
     public String forward(int steps) {
-        while(steps>0 && current.next!=null){
-            current=current.next;
+        while(steps>0 && !future.isEmpty()){
+            history.push(current);
+            current = future.pop();
             steps--;
         }
-        return current.data;
+        return current;
     }
 }
-
-// Let's assume here, n visit calls are made, m is the maximum number of steps to go forward or back, and l is the maximum length of a URL string.
-
-// Time complexity:
-
-// visit(url) t will take O(l) time to create a new node(to allocate memory for l characters of the url string), and then we mark this new node as current which will take O(1) time.
-// worst case each call to the visit(url) method will take O(l) time.
-    
+// Let's assume here, n visit calls are made, m is the maximum number of steps to go forward or back, and l is the maximum length of the URL string.
+// Time complexity: 
+// visit(url) 
+//     in the worst case each call to the visit(url) method will take O(1) time.
 // back(steps) and forward(steps)
 //     in the worst case, each call to these methods will take O(min(m,n)) time.
 
-// Space complexity: O(l⋅n)
+// Space complexity: n the worse case, we use O(l⋅n) space.
+
 /**
  * Your BrowserHistory object will be instantiated and called as such:
  * BrowserHistory obj = new BrowserHistory(homepage);
