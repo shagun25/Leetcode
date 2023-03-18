@@ -38,6 +38,17 @@ class BrowserHistory {
     }
 }
 
+// Let's assume here, n visit calls are made, m is the maximum number of steps to go forward or back, and l is the maximum length of a URL string.
+
+// Time complexity:
+
+// visit(url) t will take O(l) time to create a new node(to allocate memory for l characters of the url string), and then we mark this new node as current which will take O(1) time.
+// worst case each call to the visit(url) method will take O(l) time.
+    
+// back(steps) and forward(steps)
+//     in the worst case, each call to these methods will take O(min(m,n)) time.
+
+// Space complexity: O(l⋅n)
 /**
  * Your BrowserHistory object will be instantiated and called as such:
  * BrowserHistory obj = new BrowserHistory(homepage);
