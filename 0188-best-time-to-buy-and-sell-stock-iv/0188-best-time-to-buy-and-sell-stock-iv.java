@@ -6,7 +6,7 @@ class Solution {
         if(n<2) return 0;//only one stock, buy sell on same day=0.
         int dp[][] = new int[k+1][n]; // space: O(k*n)
         
-        //TC: O(k*n*n)
+        //TC: O(k*n)
         for(int i=1;i<=k;i++){
             int effectiveBuyPrice=prices[0];
             for(int j=1;j<n;j++){
