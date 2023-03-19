@@ -11,5 +11,6 @@ class Solution {
             reset = Math.max(reset,prev_sold);
         }
         return Math.max(sold,reset);
+        // At end, we can be either in state we just sold the stock or resting/cool down.
     }
 }
