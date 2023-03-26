@@ -20,15 +20,11 @@ class WordDictionary {
         return helper(0,word,node);
     }
     boolean helper(int ind,String word,TrieNode node){
-            if(ind==word.length())
-                return node.isEnd();
             for(int i=ind;i<word.length();i++){
                 if(word.charAt(i)=='.'){
                     for(int j='a';j<='z';j++){
                         if(node.containsKey((char)j)){
-                            TrieNode tmp = node;
-                            tmp = tmp.get((char)j);
-                            if(helper(i+1,word,tmp))
+                            if(helper(i+1,word,node.get((char)j)))
                                 return true;
                         }
                     }
