@@ -6,13 +6,13 @@ class TrieNode{
         wrd=null;
     }
     boolean containsKey(char ch){
-        return links[ch-'A']!=null;
+        return links[ch]!=null;
     }
     void put(char ch,TrieNode node){
-        links[ch-'A']=node;
+        links[ch]=node;
     }
     TrieNode get(char ch){
-        return links[ch-'A'];
+        return links[ch];
     }
     void setWrd(String word){
         wrd=word;
