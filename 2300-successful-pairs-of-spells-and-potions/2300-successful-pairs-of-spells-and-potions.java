@@ -8,8 +8,7 @@ class Solution {
             int spell = spells[i];
             while(l<=h){
                 int m = l+(h-l)/2;
-                long product = (long) spell * potions[m];
-                if (product >= success) h=m-1;
+                if ((long) spell * potions[m] >= success) h=m-1;
                 else l=m+1;
             }
             res[i]=potions.length-l;
