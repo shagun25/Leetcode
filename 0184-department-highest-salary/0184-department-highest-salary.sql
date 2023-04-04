@@ -6,12 +6,15 @@ select
 FROM 
     Employee e JOIN Department d 
 ON e.departmentId = d.id 
-where (e.DepartmentId , e.Salary) 
-IN
-    (   SELECT
-            DepartmentId, MAX(Salary)
+where e.Salary IN(
+    select * FROM (  
+        SELECT
+            DISTINCT Salary
         FROM
             Employee
-        GROUP BY DepartmentId
-    )
-;
+        where departmentId = d.id 
+        ORDER BY Salary DESC LIMIT 1
+    ) as T
+);
+
+
