@@ -1,4 +1,12 @@
 # Write your MySQL query statement below
+
+
+#Common table expressions (CTEs)
+
+#1. Identify the first login date for each player.
+#2. Identify the number of players who logged in the day after their first login date.
+#3. Divide the number of players identified in step 2 by the number of players identified in step 1 and round the result to two decimal places.
+
 With cte as
 (select player_id, MIN(event_date) as first_login_date
  from Activity
