@@ -6,9 +6,7 @@ class Solution {
         
         for(int i=0;i<p.length;i++){
             if(!s.isEmpty()  && p[i].equals("..")) s.pop();
-            else if(s.isEmpty()  && p[i].equals("..")) continue;
-            else if(p[i].equals("") || p[i].equals(".") ) continue;
-            else s.push(p[i]);
+            if(!p[i].equals("") && !p[i].equals(".") && !p[i].equals("..")) s.push(p[i]);
         }
         
         
