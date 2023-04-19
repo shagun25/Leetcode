@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    //a boolean goLeft to indicate whether we should go left for the continuation of the zigzag path, and steps which stores the length of the zigzag path so far.
     int pathLength=0;
     void dfs(TreeNode root, boolean goLeft, int steps){
         if(root==null) return;
