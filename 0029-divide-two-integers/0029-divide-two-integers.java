@@ -11,6 +11,11 @@ class Solution {
         return (A > 0) == (B > 0) ? res : -res; //sign case
     }
 }
+//TLE(naive)
+//         dividend = 10, divisor = 3
+//         10  7   4   1
+//         3   3   3   3(stop)   res=3
+
 // Explanation
 // Step1   dividend = 10, divisor = 3
 //         10  10  10
