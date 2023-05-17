@@ -1,19 +1,29 @@
 class Solution {
     public int pairSum(ListNode head) {
-        ListNode current = head;
-        List<Integer> values = new ArrayList<>();
+        ListNode slow = head;
+        ListNode fast = head;
 
-        while (current != null) {
-            values.add(current.val);
-            current = current.next;
+        // Get middle of the linked list.
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
         }
 
-        int i = 0, j = values.size() - 1;
+        // Reverse second half of the linked list.
+        ListNode nextNode, prev = null;
+        while (slow != null) {
+            nextNode = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
+
+        ListNode start = head;
         int maximumSum = 0;
-        while (i < j) {
-            maximumSum = Math.max(maximumSum, values.get(i) + values.get(j));
-            i++;
-            j--;
+        while (prev != null) {
+            maximumSum = Math.max(maximumSum, start.val + prev.val);
+            prev = prev.next;
+            start = start.next;
         }
 
         return maximumSum;
