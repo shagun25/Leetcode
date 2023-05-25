@@ -16,14 +16,15 @@ class Solution {
         for(int i=0;i<n;i++){
            scores[i] = new Score(num2[i],num1[i]); 
         }
+        //scores[] = [[4,2],[3,3],[2,1],[1,3]]
         Arrays.sort(scores, Collections.reverseOrder());
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
         long res=0,sum=0;
         for(int i=0;i<n;i++){
-            pq.add(scores[i].num1);
-            sum+=scores[i].num1;
+            pq.add(scores[i].num1);//pq : 2 3 3
+            sum+=scores[i].num1;//sum+=2+3=5+1=6+3=9-1=8
             if(pq.size()>k) sum-=pq.poll();
-            if(pq.size()==k) res=Math.max(res,sum*scores[i].num2);
+            if(pq.size()==k) res=Math.max(res,sum*scores[i].num2);//res=6*2=12
         }
         return res;
     }
