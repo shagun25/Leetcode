@@ -1,24 +1,23 @@
 class Solution {
-    int mini = Integer.MAX_VALUE;
-
-    private void distributeCookiesHelp(int ind, int dp[], int cs[]) {
-        if( ind == cs.length){
-            int maxi = Integer.MIN_VALUE;
-            for(int x : dp) maxi = Math.max(maxi, x);
-            mini = Math.min(mini, maxi);
+    int ans=Integer.MAX_VALUE;
+    public void backtrackfun(int i, int cookies[], int bag[]){
+        if(i==cookies.length){
+            int maxi=0;
+            for(int k=0;k<bag.length;k++){
+                maxi=Math.max(maxi,bag[k]);
+            }
+            ans=Math.min(ans,maxi);
             return;
         }
-
-        for(int i=0; i<dp.length; i++){
-            dp[i] += cs[ind];
-            distributeCookiesHelp(ind+1, dp, cs);
-            dp[i] -= cs[ind];
+        for(int k=0;k<bag.length;k++){
+            bag[k]=bag[k]+cookies[i];
+            backtrackfun(i+1,cookies,bag);
+            bag[k]=bag[k]-cookies[i];
         }
     }
-
-    public int distributeCookies(int[] cs, int k) {
-        int dp[] = new int[k];
-        distributeCookiesHelp(0, dp, cs);
-        return mini;
+    public int distributeCookies(int[] cookies, int k) {
+        int bag[]=new int[k];
+        backtrackfun(0,cookies,bag);
+        return ans;
     }
 }
