@@ -13,7 +13,7 @@ class Solution {
                 minDeque.pollLast();
             }
             minDeque.offerLast(nums[end]);
-            while(Math.abs(maxDeque.peekFirst()-minDeque.peekFirst())>limit){
+            while(!maxDeque.isEmpty() && !minDeque.isEmpty() && Math.abs(maxDeque.peekFirst()-minDeque.peekFirst())>limit){
                 if(maxDeque.peekFirst()==nums[start]){
                     maxDeque.pollFirst();
                 }
