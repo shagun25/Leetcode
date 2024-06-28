@@ -12,16 +12,8 @@ class Solution {
         return omax;
     }
     int bs(int dp[], int s, int e, int target){
-        while(s<e){
-            int m = s+(e-s)/2;
-            if(dp[m]==target){
-                return m;
-            }else if(dp[m]>target){
-                e = m;
-            }else{
-                s = m+1;
-            }
-        }
-        return s;
+        int index = Arrays.binarySearch(dp,s,e,target);
+        if(index<0) index = - (index+1);
+        return index;
     }
 }
