@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public List<List<Integer>> getAncestors(int n, int[][] edges) {
         List<List<Integer>> list = new ArrayList<>();
@@ -16,23 +14,18 @@ class Solution {
             list.get(to).add(from);
         }
 
-        // Compute ancestors using BFS
+        // Compute ancestors using BFS with TreeSet
         List<List<Integer>> ancestors = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            Set<Integer> ancestorSet = new HashSet<>();
+            TreeSet<Integer> ancestorSet = new TreeSet<>();
             bfs(i, list, ancestorSet);
             ancestors.add(new ArrayList<>(ancestorSet));
-        }
-
-        // Sort ancestors lists
-        for (List<Integer> ancestorList : ancestors) {
-            Collections.sort(ancestorList);
         }
 
         return ancestors;
     }
 
-    private void bfs(int node, List<List<Integer>> list, Set<Integer> ancestorSet) {
+    private void bfs(int node, List<List<Integer>> list, TreeSet<Integer> ancestorSet) {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(node);
         while (!queue.isEmpty()) {
