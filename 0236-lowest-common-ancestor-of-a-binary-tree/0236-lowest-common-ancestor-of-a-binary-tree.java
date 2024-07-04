@@ -8,32 +8,44 @@
  * }
  */
 class Solution {
-    boolean nodeToRootPath(TreeNode root,TreeNode x,ArrayList<TreeNode> arr){
-       if(root==null) return false;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        List<Integer> pPath = new ArrayList<>();
+        dfsTraversal(root, p, pPath);
+         Collections.reverse(pPath);
+        System.out.print("pPath: "+ pPath);
+        
+         List<Integer> qPath = new ArrayList<>();
+        dfsTraversal(root, q, qPath);
+         Collections.reverse(qPath);
+        System.out.print("qPath: "+ qPath);
+        
+        
+        int i=0,j=0;
+        while(i<pPath.size() && j<qPath.size()){
+            if(pPath.get(i).equals(qPath.get(i))) {
+              i++;j++;
+            }else break;
+        }
+        //  int i = 0;
+        // while (i < pPath.size() && i < qPath.size() && pPath.get(i).equals(qPath.get(i))) {
+        //     i++;
+        // }
+        return new TreeNode(pPath.get(i-1));
+    }
+    boolean dfsTraversal(TreeNode root, TreeNode x,  List<Integer> path){
+        if(root==null) return false;
         if(root.val==x.val) {
-           arr.add(root);
-           return true;
-       }
-        if(nodeToRootPath(root.left,x,arr)) {
-            arr.add(root);
+            path.add(root.val);
             return true;
         }
-        if(nodeToRootPath(root.right,x,arr)) {
-            arr.add(root);
+        if(dfsTraversal(root.left, x, path)) {
+            path.add(root.val);
+            return true;
+        }
+        if(dfsTraversal(root.right, x, path)) {
+            path.add(root.val);
             return true;
         }
         return false;
-    }
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        ArrayList<TreeNode> arr1 = new ArrayList<TreeNode>(); 
-        nodeToRootPath(root,p,arr1);
-        ArrayList<TreeNode> arr2 = new ArrayList<TreeNode>();
-        nodeToRootPath(root,q,arr2);
-        int n = (arr1.size()>arr2.size())?arr2.size():arr1.size();
-        int i=0,j=0;
-        for(i=arr1.size()-1, j=arr2.size()-1;i>=0 && j>=0;i-- ,j--){
-            if(arr1.get(i)!=arr2.get(j)) break;
-        }
-        return arr1.get(i+1);
     }
 }
