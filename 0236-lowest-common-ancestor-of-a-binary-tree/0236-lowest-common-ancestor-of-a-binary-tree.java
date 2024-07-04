@@ -9,39 +9,11 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        List<Integer> pPath = new ArrayList<>();
-        dfsTraversal(root, p, pPath);
-         Collections.reverse(pPath);
-        System.out.print("pPath: "+ pPath);
-        
-         List<Integer> qPath = new ArrayList<>();
-        dfsTraversal(root, q, qPath);
-         Collections.reverse(qPath);
-        System.out.print("qPath: "+ qPath);
-        
-        
-        int i=0,j=0;
-        while(i<pPath.size() && j<qPath.size()){
-            if((int)pPath.get(i)==(int)qPath.get(i)) {
-              i++;j++;
-            }else break;
-        }
-        return new TreeNode(pPath.get(i-1));
-    }
-    boolean dfsTraversal(TreeNode root, TreeNode x,  List<Integer> path){
-        if(root==null) return false;
-        if(root.val==x.val) {
-            path.add(root.val);
-            return true;
-        }
-        if(dfsTraversal(root.left, x, path)) {
-            path.add(root.val);
-            return true;
-        }
-        if(dfsTraversal(root.right, x, path)) {
-            path.add(root.val);
-            return true;
-        }
-        return false;
+        if(root==null || root.val==p.val || root.val==q.val) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if(left!=null && right!=null) return root; // Case1: p and q lies in left and right or vice versa.
+        if(left!=null) return left; // Case2: p and q both lies on left side, whichever you find first will be the ans.
+        return right;   // Case3: p and q both lies on right side, whichever you find first will be the ans.
     }
 }
