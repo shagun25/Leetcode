@@ -22,14 +22,10 @@ class Solution {
         
         int i=0,j=0;
         while(i<pPath.size() && j<qPath.size()){
-            if(pPath.get(i).equals(qPath.get(i))) {
+            if((int)pPath.get(i)==(int)qPath.get(i)) {
               i++;j++;
             }else break;
         }
-        //  int i = 0;
-        // while (i < pPath.size() && i < qPath.size() && pPath.get(i).equals(qPath.get(i))) {
-        //     i++;
-        // }
         return new TreeNode(pPath.get(i-1));
     }
     boolean dfsTraversal(TreeNode root, TreeNode x,  List<Integer> path){
