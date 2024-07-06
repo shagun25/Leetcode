@@ -27,8 +27,6 @@ class Solution {
         int min = Math.min(left[0],right[0]);
         int max = Math.max(left[1],right[1]);
         diff = Math.max(diff,Math.max(Math.abs(min-root.val), Math.abs(max-root.val)));
-        min = Math.min(min,root.val);
-        max = Math.max(max,root.val);
-        return new int[]{min,max};
+        return new int[]{Math.min(min,root.val),Math.max(max,root.val)};
     }
 }
