@@ -1,22 +1,17 @@
 class Solution {
-
     public int findTheWinner(int n, int k) {
-        // Initialize queue with n friends
-        Queue<Integer> circle = new LinkedList<Integer>();
-        for (int i = 1; i <= n; i++) {
-            circle.add(i);
-        }
-
-        // Perform eliminations while more than 1 player remains
-        while (circle.size() > 1) {
-            // Process the first k-1 friends without eliminating them
-            for (int i = 0; i < k - 1; i++) {
-                circle.add(circle.remove());
+        ArrayList<Integer> arr = new ArrayList<>();
+        for(int i=1;i<=n;i++) arr.add(i);
+        int i=0,count=k-1;
+        while(arr.size()>1){
+            while(arr.size()>1 && count>0){ 
+                 i=(i+1)%arr.size();
+                 count--;
             }
-            // Eliminate the k-th friend
-            circle.remove();
+            count=k-1;
+            arr.remove(i); 
+            // System.out.println("i: "+i);
         }
-
-        return circle.peek();
+        return arr.get(0);
     }
 }
