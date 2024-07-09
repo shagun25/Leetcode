@@ -7,11 +7,8 @@ class Solution {
             int time = customer[1];
             if(x<arr) x=arr+time;
             else x+=time;
-            // x = Math.max(x,arr)+time;
             wait+=x-arr;
-            System.out.println("wait"+wait);
         }
-        int n = customers.length;
-        return wait/(double)n;
+        return wait/(double)customers.length;
     }
 }
