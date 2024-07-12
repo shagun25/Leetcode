@@ -4,8 +4,8 @@ class Solution {
     public int maximumGain(String s, int x, int y) {
         Stack<Character> stack = new Stack<>();
         int gain = 0;
-        int largerVal = Math.max(x, y);
-        int smallerVal = Math.min(x, y);
+        int largerVal = Math.max(x, y); 
+        int smallerVal = Math.min(x, y); 
         char firstChar = x > y ? 'a' : 'b';
         char secondChar = firstChar == 'a' ? 'b' : 'a';
 
@@ -15,22 +15,23 @@ class Solution {
                 stack.pop();
                 gain += largerVal;
             } else {
-                stack.push(ch);
+                stack.push(ch);  
             }
         }
-
-      
-        Stack<Character> secondStack = new Stack<>();
+        int count=0;
         while (!stack.isEmpty()) {
             char ch = stack.pop();
-            if (!secondStack.isEmpty() && secondStack.peek() == firstChar && ch == secondChar) {
-                secondStack.pop();
-                gain += smallerVal;
-            } else {
-                secondStack.push(ch);
+            if (ch==firstChar) {
+                count++;
+            } else if(ch==secondChar && count>0){
+                gain+=smallerVal;
+                count--;
+            }else{
+                count=0;
             }
         }
 
         return gain;
     }
 }
+
