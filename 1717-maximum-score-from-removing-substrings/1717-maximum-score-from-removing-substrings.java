@@ -14,8 +14,10 @@ class Solution {
             if (!stack.isEmpty() && stack.peek() == firstChar && ch == secondChar) {
                 stack.pop();
                 gain += largerVal;
-            } else {
+            } else if(ch == firstChar || ch == secondChar){
                 stack.push(ch);  
+            }else if(!stack.isEmpty() && stack.peek()!=x){
+                stack.push('x');  
             }
         }
         int count=0;
@@ -33,5 +35,5 @@ class Solution {
 
         return gain;
     }
-}
 
+}
