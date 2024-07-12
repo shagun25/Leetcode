@@ -9,7 +9,7 @@ class Solution {
         char firstChar = x > y ? 'a' : 'b';
         char secondChar = firstChar == 'a' ? 'b' : 'a';
 
-        // First pass: process characters based on the larger gain
+  
         for (char ch : s.toCharArray()) {
             if (!stack.isEmpty() && stack.peek() == firstChar && ch == secondChar) {
                 stack.pop();
@@ -19,7 +19,7 @@ class Solution {
             }
         }
 
-        // Second pass: process remaining characters for the smaller gain
+      
         Stack<Character> secondStack = new Stack<>();
         while (!stack.isEmpty()) {
             char ch = stack.pop();
