@@ -14,8 +14,7 @@
  * }
  */
 class Solution {
-    StringBuilder pathToStart;
-    StringBuilder pathToDest;
+    StringBuilder pathToStart,pathToDest;
     public String getDirections(TreeNode root, int startValue, int destValue) {
          TreeNode ans = lca(root, startValue, destValue);
 
