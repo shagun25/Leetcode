@@ -14,11 +14,13 @@
  * }
  */
 class Solution {
+    StringBuilder pathToStart;
+    StringBuilder pathToDest;
     public String getDirections(TreeNode root, int startValue, int destValue) {
          TreeNode ans = lca(root, startValue, destValue);
 
-         StringBuilder pathToStart = new StringBuilder();
-         StringBuilder pathToDest = new StringBuilder();
+         pathToStart = new StringBuilder();
+         pathToDest = new StringBuilder();
          findPath(ans, startValue, pathToStart);
          findPath(ans, destValue, pathToDest);
 
